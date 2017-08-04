@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "441291298281",
+    "firebase_url": "https://doctorrecommendersystem-25c6e.firebaseio.com",
+    "project_id": "doctorrecommendersystem-25c6e",
+    "storage_bucket": "doctorrecommendersystem-25c6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441291298281:android:c6d3c19ac47c2cef",
+        "android_client_info": {
+          "package_name": "com.example.zain.doctorrecommendersystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441291298281-gc2n4aakfu0l8q5td52n20ui8aurk9es.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zain.doctorrecommendersystem",
+            "certificate_hash": "bdb18302fe9d551dff034f1576d70ab7947da87d"
+          }
+        },
+        {
+          "client_id": "441291298281-l7gckmh4a7f7n7hmtj7caos49vjfu4k2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnBkmn2uwi9Yr9ZIbCAGeJHG8ZDzT6Kfs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441291298281-l7gckmh4a7f7n7hmtj7caos49vjfu4k2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

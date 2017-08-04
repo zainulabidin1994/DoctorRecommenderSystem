@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_enterSymptoms"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Enter Symptoms:" />
+        <item
+            android:id="@+id/nav_findDoctor"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Find Doctor!" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_Aboutus"
+                android:icon="@drawable/ic_menu_share"
+                android:title="About Us" />
+            <item
+                android:id="@+id/nav_AboutApp"
+                android:checkable="true"
+                android:enabled="true"
+                android:icon="@drawable/ic_menu_send"
+                android:title="About DRS"
+                android:visible="true" />
+        </menu>
+    </item>
+
+</menu>

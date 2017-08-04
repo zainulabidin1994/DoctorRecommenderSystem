@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zain.doctorrecommendersystem.ShowDisease">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="  Disease Found:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="358dp"
+        android:layout_height="427dp"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="68dp">
+
+        <ListView
+            android:id="@+id/showDiseaseListview"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_above="@+id/findDoctorButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/findDoctorButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="25dp"
+            android:background="@android:color/holo_blue_light"
+            android:onClick="findDoctorButtonClicked"
+            android:text="Find Doctor" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
