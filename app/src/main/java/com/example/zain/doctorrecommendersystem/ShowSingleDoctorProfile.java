@@ -1,6 +1,7 @@
 package com.example.zain.doctorrecommendersystem;
 
 import android.*;
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -27,9 +29,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.jar.*;
 
 public class ShowSingleDoctorProfile extends AppCompatActivity {
 
+
+    private static final int PERMISSIONS_REQUEST_CODE = 11;
     private String Location;
     private String doctorLatitude, doctorLongitude;
     private String currentLocationLatitide;
@@ -59,7 +64,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_single_doctor_profile);
 
-        askPermission();
+
 
         Doctor_Name = (TextView)findViewById(R.id.Doctor_Name);
         Hospital_Name = (TextView)findViewById(R.id.Hospital_Name);
@@ -72,6 +77,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
         if(data==null){
             return;
+
         }
 
         Name = data.getString("Name");
@@ -90,41 +96,6 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         Doctor_Theme.setText(doctor_Theme);
 
 
-
-    }
-
-    protected void askPermission() {
-
-
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.SEND_SMS)) {
-
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.SEND_SMS},
-                        MY_PERMISSIONS_REQUEST_SEND_SMS);
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Cant Make Appoinment Without Premissions.!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-        }
 
     }
 
@@ -159,7 +130,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(ShowSingleDoctorProfile.this, "Canceled", Toast.LENGTH_LONG).show();
+                Toast.makeText(ShowSingleDoctorProfile.this, "Appointment Not send!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -171,7 +142,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNo, null, Message, null, null);
-        Toast.makeText(getApplicationContext(), "SMS sent.",
+        Toast.makeText(getApplicationContext(), "Request send Successfully!",
                 Toast.LENGTH_LONG).show();
 
     }
@@ -254,9 +225,26 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
     public void MakeAppointmentButtonClick(View view){
 
-        openDialog_appointment();
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.SEND_SMS},PERMISSIONS_REQUEST_CODE);
+            }else{
+                openDialog_appointment();
+            }
+        }else{
+            openDialog_appointment();
+        }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == PERMISSIONS_REQUEST_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openDialog_appointment();
+            }
+        }
     }
 }
 
