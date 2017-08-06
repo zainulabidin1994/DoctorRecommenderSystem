@@ -99,7 +99,6 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
     }
 
-
     private void openDialog_appointment(){
         LayoutInflater inflater = LayoutInflater.from(ShowSingleDoctorProfile.this);
         View subView = inflater.inflate(R.layout.dialog_layout_appointment, null);
