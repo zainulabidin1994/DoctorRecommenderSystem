@@ -300,7 +300,6 @@ public class Symptoms2Diseases extends Fragment {
     public void OnShowDiseaseClick(){
 
 
-
         if(TextUtils.isEmpty(editText.getText().toString()))
         {
             Toast.makeText(getContext(), " Enter Something in Text Field : ", Toast.LENGTH_LONG).show();

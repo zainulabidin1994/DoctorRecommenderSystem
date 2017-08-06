@@ -45,6 +45,8 @@ public class ShowDoctor extends AppCompatActivity {
             doctorEmail[i] = oneDoctor.getEmail();
             hospitalName[i] = oneDoctor.getHospitalName();
             doctorLocation[i] = oneDoctor.getAddress();
+            doctorNumber[i] = oneDoctor.getNumber();
+            doctorTheme[i] = oneDoctor.getTheme();
 
             i++;
 

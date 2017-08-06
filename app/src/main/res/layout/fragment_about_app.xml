@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_authenticate"
     tools:context="com.example.zain.doctorrecommendersystem.aboutApp">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:text="Doctor Recommender System app"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:layout_alignParentTop="true" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 </RelativeLayout>

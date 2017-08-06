@@ -1,15 +1,20 @@
 package com.example.zain.doctorrecommendersystem;
 
+import android.*;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -30,24 +35,21 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
     private String currentLocationLatitide;
     private String currentLoactionLongitude;
 
+
+
     // Doctor Profile Declaration
     String Name = null;
     String Hospital = null;
     String Email = null;
     String doctor_Address = null;
-    String Number = null;
     String doctor_Theme = null;
+    String Message = "Hello Zain";
+    String phoneNo = "";
 
-    // Firebase
-    FirebaseAuth.AuthStateListener mAuthListner;
 
     // Declaration for sms sending to dictor
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
-    Button sendBtn;
-    EditText txtphoneNo;
-    EditText txtMessage;
-    String phoneNo;
-    String message = "Appointment Request from User";
+
 
 
     TextView Doctor_Name,Hospital_Name,Doctor_Email,Doctor_Theme;
@@ -57,6 +59,8 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_single_doctor_profile);
 
+        askPermission();
+
         Doctor_Name = (TextView)findViewById(R.id.Doctor_Name);
         Hospital_Name = (TextView)findViewById(R.id.Hospital_Name);
         Doctor_Email = (TextView)findViewById(R.id.Doctor_Email);
@@ -64,6 +68,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
 
         Bundle data = getIntent().getExtras();
+
 
         if(data==null){
             return;
@@ -74,7 +79,9 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         Email = data.getString("Hospital");
         doctor_Address = data.getString("Address");
         doctor_Theme = data.getString("Theme");
-        Number = data.getString("Number");
+        phoneNo = data.getString("Number");
+
+
 
 
         Doctor_Name.setText(Name);
@@ -82,6 +89,90 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         Doctor_Email.setText(Email);
         Doctor_Theme.setText(doctor_Theme);
 
+
+
+    }
+
+    protected void askPermission() {
+
+
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.SEND_SMS)) {
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "Cant Make Appoinment Without Premissions.!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
+
+    }
+
+
+    private void openDialog_appointment(){
+        LayoutInflater inflater = LayoutInflater.from(ShowSingleDoctorProfile.this);
+        View subView = inflater.inflate(R.layout.dialog_layout_appointment, null);
+        final EditText Name_ = (EditText)subView.findViewById(R.id.Name);
+        final EditText Time_ = (EditText)subView.findViewById(R.id.Timming);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Fill The Form");
+        builder.setView(subView);
+
+        builder.setPositiveButton("Send Request", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String Name,Time;
+                Name = Name_.getText().toString();
+                Time = Time_.getText().toString();
+
+                Message = "Patient : "+Name+" want to make Appointment at "+Time;
+
+                sendMessage();
+
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(ShowSingleDoctorProfile.this, "Canceled", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void sendMessage(){
+
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNo, null, Message, null, null);
+        Toast.makeText(getApplicationContext(), "SMS sent.",
+                Toast.LENGTH_LONG).show();
 
     }
 
@@ -163,7 +254,8 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
     public void MakeAppointmentButtonClick(View view){
 
-        Toast.makeText(ShowSingleDoctorProfile.this,"Appointment Request has been send to doctor!",Toast.LENGTH_LONG).show();
+        openDialog_appointment();
+
 
     }
 }

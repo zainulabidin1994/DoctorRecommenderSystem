@@ -2,16 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
+    android:background="@drawable/bg_authenticate"
     tools:context="com.example.zain.doctorrecommendersystem.findDoctor">
 
-    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/searchDoctorText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:hint="Search Doctor By Speciality:"
+        android:inputType="textPersonName" />
 
     <ListView
         android:id="@+id/Doctors"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/searchDoctorText" />
+
 </RelativeLayout>
