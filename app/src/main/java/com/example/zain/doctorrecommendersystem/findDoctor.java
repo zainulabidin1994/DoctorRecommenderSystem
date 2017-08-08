@@ -72,7 +72,8 @@ public class findDoctor extends Fragment {
 
         }
 
-        final ListAdapter listAdapter = new customArrayList(getContext(),doctorName,doctorTheme);
+//        final ListAdapter listAdapter = new customArrayList(getContext(),doctorName,doctorTheme);
+        final customArrayList listAdapter = new customArrayList(getContext(),doctorName,doctorTheme);
         final ListView listView = (ListView)getView().findViewById(R.id.findDoctorListview);
         listView.setAdapter(listAdapter);
 
@@ -104,6 +105,7 @@ public class findDoctor extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
 
+                 listAdapter.getFilter().filter(s);
 
                 return false;
             }

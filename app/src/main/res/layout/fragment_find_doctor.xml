@@ -13,12 +13,13 @@
         android:layout_height="400dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/searchview1" />
 
     <SearchView
         android:id="@+id/searchview1"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/findDoctorListview"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
