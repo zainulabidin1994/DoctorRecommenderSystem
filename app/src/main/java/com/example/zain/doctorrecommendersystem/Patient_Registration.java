@@ -1,6 +1,8 @@
 package com.example.zain.doctorrecommendersystem;
 
 
+import android.content.Intent;
+
 public class Patient_Registration {
 
     String firstname,lastname,username,password,address;
@@ -55,4 +57,6 @@ public class Patient_Registration {
     public void setAddress(String address) {
         this.address = address;
     }
+
+
 }

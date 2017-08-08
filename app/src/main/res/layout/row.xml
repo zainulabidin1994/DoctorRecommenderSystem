@@ -17,6 +17,7 @@
         android:layout_width="243dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginLeft="5dp"
         android:weightSum="1">
 
         <TextView

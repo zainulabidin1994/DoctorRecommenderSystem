@@ -156,6 +156,7 @@ public class PatientRegistration extends AppCompatActivity {
 
         startActivity(new Intent(this,Patient_Login.class));
 
+
     }
 
 }

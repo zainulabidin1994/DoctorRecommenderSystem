@@ -52,7 +52,7 @@ public class ShowDoctor extends AppCompatActivity {
 
         }
 
-        ListAdapter listAdapter = new customArrayList(this,doctorName,doctorEmail);
+        ListAdapter listAdapter = new customArrayList(this,doctorName,hospitalName);
         ListView listView = (ListView)findViewById(R.id.showDoctorListview);
         listView.setAdapter(listAdapter);
 
@@ -78,11 +78,6 @@ public class ShowDoctor extends AppCompatActivity {
         );
 
     }
-
-//    @Override
-//    public void onBackPressed() {
-//
-//    }
 
 }
 

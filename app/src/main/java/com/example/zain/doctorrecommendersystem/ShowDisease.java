@@ -27,9 +27,7 @@ import static java.security.AccessController.getContext;
 
 public class ShowDisease extends AppCompatActivity {
 
-
     DoctorProfile docProObj = null;
-    
 
     // Using to load data in LOADDataset() Function
     List<DoctorProfile> doctorProfile_List = new ArrayList<DoctorProfile>();

@@ -1,27 +1,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Parent_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_authenticate"
     tools:context="com.example.zain.doctorrecommendersystem.findDoctor">
 
+
     <EditText
-        android:id="@+id/searchDoctorText"
+        android:id="@+id/Doctor_Search"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
         android:background="@android:color/background_light"
         android:ems="10"
-        android:hint="Search Doctor By Speciality:"
+        android:hint="Search Doctor Here:"
         android:inputType="textPersonName" />
 
     <ListView
-        android:id="@+id/Doctors"
+        android:id="@+id/findDoctorListview"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/searchDoctorText" />
-
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Doctor_Search"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
