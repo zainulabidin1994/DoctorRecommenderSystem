@@ -7,22 +7,18 @@
     tools:context="com.example.zain.doctorrecommendersystem.findDoctor">
 
 
-    <EditText
-        android:id="@+id/Doctor_Search"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:background="@android:color/background_light"
-        android:ems="10"
-        android:hint="Search Doctor Here:"
-        android:inputType="textPersonName" />
-
     <ListView
         android:id="@+id/findDoctorListview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/Doctor_Search"
+        android:layout_height="400dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <SearchView
+        android:id="@+id/searchview1"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/findDoctorListview"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

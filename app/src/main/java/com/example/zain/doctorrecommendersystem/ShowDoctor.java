@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,9 +53,11 @@ public class ShowDoctor extends AppCompatActivity {
 
         }
 
-        ListAdapter listAdapter = new customArrayList(this,doctorName,hospitalName);
-        ListView listView = (ListView)findViewById(R.id.showDoctorListview);
+        final ListAdapter listAdapter = new customArrayList(this,doctorName,hospitalName);
+        final ListView listView = (ListView)findViewById(R.id.showDoctorListview);
         listView.setAdapter(listAdapter);
+
+
 
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){

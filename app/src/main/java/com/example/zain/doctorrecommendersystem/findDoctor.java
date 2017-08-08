@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SearchViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -26,6 +28,9 @@ public class findDoctor extends Fragment {
 
     // Using to load data in LOADDataset() Function
     List<DoctorProfile> doctorProfile_List = new ArrayList<DoctorProfile>();
+
+    //Searchview
+    SearchView Seach;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +46,8 @@ public class findDoctor extends Fragment {
         LoadDataset();
 
         int arraySize = doctorProfile_List.size();
+
+        Seach = (SearchView) getView().findViewById(R.id.searchview1);
 
         final String[] doctorName = new String[arraySize];
         final String[] hospitalName = new String[arraySize];
@@ -65,8 +72,8 @@ public class findDoctor extends Fragment {
 
         }
 
-        ListAdapter listAdapter = new customArrayList(getContext(),doctorName,doctorTheme);
-        ListView listView = (ListView)getView().findViewById(R.id.findDoctorListview);
+        final ListAdapter listAdapter = new customArrayList(getContext(),doctorName,doctorTheme);
+        final ListView listView = (ListView)getView().findViewById(R.id.findDoctorListview);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(
@@ -83,10 +90,24 @@ public class findDoctor extends Fragment {
                         i.putExtra("Theme",doctorTheme[position]);
                         startActivity(i);
 
-
                     }
                 }
         );
+
+
+        Seach.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+
+                return false;
+            }
+        });
 
 
     }
