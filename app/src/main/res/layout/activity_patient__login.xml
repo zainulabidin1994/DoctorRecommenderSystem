@@ -29,8 +29,8 @@
             android:layout_marginBottom="30dp"
             android:background="@android:color/background_light"
             android:ems="10"
-            android:hint="Email"
-            android:inputType="textPersonName" />
+            android:hint="Email:"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/password"
@@ -42,17 +42,17 @@
             android:layout_marginBottom="60dp"
             android:background="@android:color/background_light"
             android:ems="10"
-            android:hint="Password"
+            android:hint="Password:"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="40dp"
             android:layout_above="@+id/notRegisterYet"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="63dp"
-            android:background="@android:color/background_light"
             android:text="LOGIN" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="79dp"
             android:layout_marginTop="2dp"
-            android:text="Not Registered Yet? Create One"
+            android:text="Not Having Account? Create One"
             android:textColor="@android:color/background_light" />
 
         <ImageView
@@ -89,7 +89,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/forgetPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/notRegisterYet"

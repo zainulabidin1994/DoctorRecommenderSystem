@@ -26,7 +26,7 @@ public class Patient_Login extends AppCompatActivity {
     Button loginButton;
     EditText username,password;
     String Username,Password;
-    TextView regitserNow;
+    TextView regitserNow,forgetPassword;
     ProgressDialog progressDialog;
 
 
@@ -42,6 +42,7 @@ public class Patient_Login extends AppCompatActivity {
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         regitserNow = (TextView)findViewById(R.id.notRegisterYet);
+        forgetPassword = (TextView)findViewById(R.id.forgetPassword);
         progressDialog = new ProgressDialog(this);
 
         // getting firebase reference
@@ -106,6 +107,16 @@ public class Patient_Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(Patient_Login.this, PatientRegistration.class));
+
+            }
+        });
+
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(Patient_Login.this, forgetPassword.class));
 
             }
         });

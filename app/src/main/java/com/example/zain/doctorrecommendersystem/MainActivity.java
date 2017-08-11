@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
               }
             }
         };
+
         Symptoms2Diseases symptoms2Diseases_Fragment = new Symptoms2Diseases();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
@@ -53,15 +54,6 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -132,12 +124,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_findDoctor) {
 
-            findDoctor findDoctor_Fragment = new findDoctor();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_Manager, findDoctor_Fragment);
-            fragmentTransaction.commit();
-
+            Intent i = new Intent(MainActivity.this,allDoctor.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_Aboutus) {
 
@@ -147,14 +135,6 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.Fragment_Manager, aboutUs_Fragment);
             fragmentTransaction.commit();
 
-
-        } else if (id == R.id.nav_AboutApp) {
-
-            aboutApp aboutApp_Fragment = new aboutApp();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_Manager, aboutApp_Fragment);
-            fragmentTransaction.commit();
 
         }
 

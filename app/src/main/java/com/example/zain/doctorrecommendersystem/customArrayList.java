@@ -16,38 +16,36 @@ import static android.R.id.list;
 import static com.example.zain.doctorrecommendersystem.R.layout.row;
 
 
-public class customArrayList extends ArrayAdapter<String> {
+    public class customArrayList extends ArrayAdapter<String> {
 
-    Context context;
-    String[] docName;
-    String[] docSpeciality;
+        Context context;
+        String[] docName;
+        String[] docSpeciality;
 
-    public customArrayList(Context c, String[] docName, String[] docSpecialist) {
-        super(c,R.layout.row,R.id.textView,docName);
+        public customArrayList(Context c, String[] docName, String[] docSpecialist) {
+            super(c,R.layout.row,R.id.textView,docName);
 
-        this.context = c;
-        this.docName = docName;
-        this.docSpeciality = docSpecialist;
+            this.context = c;
+            this.docName = docName;
+            this.docSpeciality = docSpecialist;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater myCustomInflater = LayoutInflater.from(getContext());
+            View customView = myCustomInflater.inflate(row, parent, false);
+            TextView doctorNames = (TextView) customView.findViewById(R.id.DoctorName);
+            TextView doctorSpeciality = (TextView) customView.findViewById(R.id.DoctorSpeciality);
+            ImageView DocImage = (ImageView) customView.findViewById(R.id.imageView);
+
+
+            doctorNames.setText(docName[position]);
+            doctorSpeciality.setText(docSpeciality[position]);
+
+            DocImage.setImageResource(R.mipmap.doctorcartoon);
+
+            return customView;
+        }
+
     }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // default -  return super.getView(position, convertView, parent);
-        // add the layout
-        LayoutInflater myCustomInflater = LayoutInflater.from(getContext());
-        View customView = myCustomInflater.inflate(row, parent, false);
-        // get references.
-        TextView doctorNames = (TextView) customView.findViewById(R.id.DoctorName);
-        TextView doctorSpeciality = (TextView) customView.findViewById(R.id.DoctorSpeciality);
-        ImageView DocImage = (ImageView) customView.findViewById(R.id.imageView);
-
-
-        doctorNames.setText(docName[position]);
-        doctorSpeciality.setText(docSpeciality[position]);
-
-        DocImage.setImageResource(R.mipmap.doctorcartoon);
-
-        return customView;
-    }
-
-}

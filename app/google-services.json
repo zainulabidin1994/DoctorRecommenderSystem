@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "441291298281-jebhcfbh5mvkgv5vpg2i6rap4548ndth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zain.doctorrecommendersystem",
+            "certificate_hash": "27fa540c0cab92155e02defbd190ab4e4f25da4d"
+          }
+        },
+        {
+          "client_id": "441291298281-0oqav3a4jfeisarn1b943t0mqiprcggd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zain.doctorrecommendersystem",
+            "certificate_hash": "52572153cf412f15133dd151b5a0408a4cf967c2"
+          }
+        },
+        {
           "client_id": "441291298281-gc2n4aakfu0l8q5td52n20ui8aurk9es.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

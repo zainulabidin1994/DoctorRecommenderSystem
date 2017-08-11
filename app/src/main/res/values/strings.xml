@@ -9,4 +9,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Find Doctor</string>
     <string name="title_activity_google_map">Map</string>
+    <string name="title_activity_all_doctors">allDoctors</string>
 </resources>

@@ -21,24 +21,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
-
         </activity>
-
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ShowDisease" />
         <activity android:name=".ShowDoctor" />
         <activity android:name=".ShowSingleDoctorProfile" />
@@ -52,7 +47,9 @@
             android:label="@string/title_activity_google_map" />
         <activity android:name=".PatientRegistration" />
         <activity android:name=".Patient_Login" />
-        <activity android:name=".GoogleSearch"></activity>
+        <activity android:name=".GoogleSearch" />
+        <activity android:name=".allDoctor" />
+        <activity android:name=".forgetPassword"></activity>
     </application>
 
 </manifest>
