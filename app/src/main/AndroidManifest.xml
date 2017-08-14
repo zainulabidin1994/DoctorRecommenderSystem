@@ -48,7 +48,6 @@
         <activity android:name=".PatientRegistration" />
         <activity android:name=".Patient_Login" />
         <activity android:name=".GoogleSearch" />
-        <activity android:name=".allDoctor" />
         <activity android:name=".forgetPassword"></activity>
     </application>
 

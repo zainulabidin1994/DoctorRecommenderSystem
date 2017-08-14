@@ -1,15 +1,16 @@
 package com.example.zain.doctorrecommendersystem;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,7 +18,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class allDoctor extends AppCompatActivity {
+public class allDoctors extends Fragment {
+
 
     DoctorProfile docProObj = null;
 
@@ -28,9 +30,14 @@ public class allDoctor extends AppCompatActivity {
     customArrayList listAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_doctor);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_all_doctors, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         LoadDataset();
 
@@ -60,8 +67,8 @@ public class allDoctor extends AppCompatActivity {
         }
 
 //        final ListAdapter listAdapter = new customArrayList(getContext(),doctorName,doctorTheme);
-        listAdapter = new customArrayList(allDoctor.this,doctorName,doctorTheme);
-        final ListView listView = (ListView)findViewById(R.id.allDoctorLIstview);
+        listAdapter = new customArrayList(getContext(),doctorName,doctorTheme);
+        final ListView listView = (ListView)getActivity().findViewById(R.id.allDoctorLIstview);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(
@@ -69,7 +76,7 @@ public class allDoctor extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        Intent i = new Intent(allDoctor.this,ShowSingleDoctorProfile.class);
+                        Intent i = new Intent(getContext(),ShowSingleDoctorProfile.class);
                         i.putExtra("Name",doctorName[position]);
                         i.putExtra("Email",doctorEmail[position]);
                         i.putExtra("Hospital",hospitalName[position]);
@@ -121,6 +128,4 @@ public class allDoctor extends AppCompatActivity {
         }
 
     }
-
-
 }

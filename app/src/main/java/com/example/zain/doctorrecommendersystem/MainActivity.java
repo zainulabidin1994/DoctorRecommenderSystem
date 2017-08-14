@@ -124,8 +124,15 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_findDoctor) {
 
-            Intent i = new Intent(MainActivity.this,allDoctor.class);
-            startActivity(i);
+
+            allDoctors allDoctors_Fragment = new allDoctors();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.Fragment_Manager, allDoctors_Fragment);
+            fragmentTransaction.commit();
+
+//            Intent i = new Intent(MainActivity.this,allDoctor.class);
+//            startActivity(i);
 
         } else if (id == R.id.nav_Aboutus) {
 

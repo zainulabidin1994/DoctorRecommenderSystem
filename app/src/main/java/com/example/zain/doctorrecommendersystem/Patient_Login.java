@@ -60,16 +60,12 @@ public class Patient_Login extends AppCompatActivity {
                     username.requestFocus();
                     username.setError("Username Field Cannot Be Empty");
 
-                }
-
-                if(Password.length()==0){
+                }else if(Password.length()==0){
 
                     password.requestFocus();
                     password.setError("Password Field Cannot Be Empty");
 
-                }
-
-                if(isNetworkAvailable()){
+                }else if(isNetworkAvailable()){
 
                     progressDialog.setMessage("Logging in...");
                     progressDialog.show();
@@ -94,7 +90,7 @@ public class Patient_Login extends AppCompatActivity {
                 }
                 else {
 
-                    Toast.makeText(Patient_Login.this,"Network is unavailable",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Patient_Login.this,"Network is Unavailable",Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -1,7 +1,10 @@
 package com.example.zain.doctorrecommendersystem;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,24 +39,39 @@ public class forgetPassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                progressDialog.setMessage("Sending Mail...");
-                progressDialog.show();
+                String emailAddress_ = emailAddress.getText().toString();
 
-                auth.sendPasswordResetEmail(emailAddress.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(forgetPassword.this, "Email Sent", Toast.LENGTH_LONG).show();
-                                    backToLogin.setVisibility(View.VISIBLE);
-                                }else{
-                                    progressDialog.dismiss();
-                                    Toast.makeText(forgetPassword.this, "Error", Toast.LENGTH_LONG).show();
-                                    backToLogin.setVisibility(View.VISIBLE);
+                if(emailAddress_.length()==0){
+
+                    emailAddress.requestFocus();
+                    emailAddress.setError("Email Address Field Cannot Be Empty");
+
+                }else if(isNetworkAvailable()){
+
+                    progressDialog.setMessage("Sending Mail...");
+                    progressDialog.show();
+
+                    auth.sendPasswordResetEmail(emailAddress.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(forgetPassword.this, "Email Sent", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(forgetPassword.this, "Check Your Email To Reset Password", Toast.LENGTH_LONG).show();
+                                        backToLogin.setVisibility(View.VISIBLE);
+                                    }else{
+                                        progressDialog.dismiss();
+                                        Toast.makeText(forgetPassword.this, "Error", Toast.LENGTH_LONG).show();
+                                        backToLogin.setVisibility(View.VISIBLE);
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                }else{
+                    Toast.makeText(forgetPassword.this,"Network is Unavailable",Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -67,7 +85,17 @@ public class forgetPassword extends AppCompatActivity {
             }
         });
 
+    }
 
+    private boolean isNetworkAvailable() {
+
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkinfo = manager.getActiveNetworkInfo();
+        boolean  isAvailable = false;
+        if ( networkinfo != null && networkinfo.isConnected()){
+            isAvailable = true;
+        }
+        return isAvailable;
 
     }
 }
