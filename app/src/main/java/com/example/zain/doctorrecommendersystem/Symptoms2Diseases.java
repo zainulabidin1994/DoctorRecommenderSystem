@@ -232,8 +232,8 @@ public class Symptoms2Diseases extends Fragment {
 
                      NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
                              NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27,
-                             "e80387c5-58e1-435f-a244-36b718e199e3",
-                             "pSDq4fYLdueA"
+                             "1dd677ba-f65d-4f05-b70a-c1929e2b8bf8",
+                             "67GzSi0dejtf"
                      );
 
 
@@ -279,7 +279,6 @@ public class Symptoms2Diseases extends Fragment {
 
                  }finally {
 
-                     Toast.makeText(getContext()," Error Please Try Again!",Toast.LENGTH_LONG).show();
 
                  }
 
