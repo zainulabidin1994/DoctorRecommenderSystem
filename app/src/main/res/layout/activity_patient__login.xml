@@ -9,16 +9,14 @@
 
     <RelativeLayout
         android:id="@+id/layout"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <EditText
             android:id="@+id/username"
@@ -63,18 +61,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="79dp"
             android:layout_marginTop="2dp"
-            android:text="Not Having Account? Create One"
+            android:text="No account yet? Create one"
             android:textColor="@android:color/background_light" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_alignEnd="@+id/loginButton"
-            android:layout_alignLeft="@+id/loginButton"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/loginButton"
-            android:layout_alignStart="@+id/loginButton"
+            android:layout_height="110dp"
+            android:layout_above="@+id/welcome"
+            android:layout_alignEnd="@+id/username"
+            android:layout_alignRight="@+id/username"
             app:srcCompat="@drawable/login" />
 
         <TextView

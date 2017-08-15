@@ -1,6 +1,5 @@
 package com.example.zain.doctorrecommendersystem;
 
-import android.*;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,24 +11,18 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-import java.util.jar.*;
 
 public class ShowSingleDoctorProfile extends AppCompatActivity {
 
@@ -57,7 +50,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
 
 
-    TextView Doctor_Name,Hospital_Name,Doctor_Email,Doctor_Theme;
+    TextView Doctor_Name,Hospital_Name,Doctor_Email,Doctor_Theme,Doctor_Address;
     String userEnteredLocation = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +63,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         Hospital_Name = (TextView)findViewById(R.id.Hospital_Name);
         Doctor_Email = (TextView)findViewById(R.id.Doctor_Email);
         Doctor_Theme = (TextView)findViewById(R.id.Doctor_Theme);
+        Doctor_Address = (TextView)findViewById(R.id.Doctor_Address);
 
 
         Bundle data = getIntent().getExtras();
@@ -81,8 +75,8 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         }
 
         Name = data.getString("Name");
-        Hospital = data.getString("Email");
-        Email = data.getString("Hospital");
+        Hospital = data.getString("Hospital");
+        Email = data.getString("Email");
         doctor_Address = data.getString("Address");
         doctor_Theme = data.getString("Theme");
         phoneNo = data.getString("Number");
@@ -94,6 +88,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         Hospital_Name.setText(Hospital);
         Doctor_Email.setText(Email);
         Doctor_Theme.setText(doctor_Theme);
+        Doctor_Address.setText(doctor_Address);
 
 
 

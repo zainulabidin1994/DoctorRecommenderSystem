@@ -274,8 +274,12 @@ public class Symptoms2Diseases extends Fragment {
                  }
                  catch (BadRequestException e){
 
+                     Toast.makeText(getContext(),e+ " ",Toast.LENGTH_LONG).show();
+
 
                  }finally {
+
+                     Toast.makeText(getContext()," Error Please Try Again!",Toast.LENGTH_LONG).show();
 
                  }
 
