@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="@drawable/bg_authenticate"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="@android:color/background_light"
         android:ems="10"
-        android:hint="Type Here:"
+        android:hint="Type here:"
         android:inputType="textPersonName" />
 
 </LinearLayout>

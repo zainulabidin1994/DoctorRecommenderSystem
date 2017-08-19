@@ -42,10 +42,10 @@ import java.util.TreeMap;
 
 public class Symptoms2Diseases extends Fragment {
 
+    ProgressDialog mProgressDialog;
 
-    private ProgressDialog progressDialog;
+
     Button button;
-
 
     // HashMap and ArrayList Declaration
     ArrayList<String> arrayList = new ArrayList<String>();
@@ -205,12 +205,14 @@ public class Symptoms2Diseases extends Fragment {
 
         if(diseaseList_Output.length() != 0){
 
+            mProgressDialog.dismiss();
             Intent i = new Intent(getContext(),ShowDisease.class);
             i.putExtra("DiseaseNames", (Serializable) diseaseList_Output);
             startActivity(i);
 
         }else{
 
+            mProgressDialog.dismiss();
             Toast.makeText(getContext()," No disease found! please enter more detail ",Toast.LENGTH_LONG).show();
 
         }
@@ -311,6 +313,13 @@ public class Symptoms2Diseases extends Fragment {
         }else{
 
             if(isNetworkAvailable()){
+
+                mProgressDialog = new ProgressDialog(getActivity());
+                mProgressDialog.setTitle("Finding Doctor...");
+                mProgressDialog.setMessage("Please wait.");
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.show();
 
                 userInput_POSTagger();
 

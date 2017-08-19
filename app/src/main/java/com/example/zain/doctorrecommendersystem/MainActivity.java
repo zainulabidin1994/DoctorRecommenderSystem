@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -29,10 +30,15 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthListner;
     private DatabaseReference mDatabaseuser;
 
+    TextView navName,navEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        navName = (TextView)findViewById(R.id.navHeaderName);
+        navEmail = (TextView)findViewById(R.id.navHeaderEmail);
 
         mAuth=FirebaseAuth.getInstance();
         mDatabaseuser= FirebaseDatabase.getInstance().getReference().child("Users");
