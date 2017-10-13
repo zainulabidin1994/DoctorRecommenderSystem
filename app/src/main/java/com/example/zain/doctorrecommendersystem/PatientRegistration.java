@@ -61,8 +61,6 @@ public class PatientRegistration extends AppCompatActivity {
                 radioSexGroup=(RadioGroup)findViewById(R.id.radioGroup);
                 int selectedId=radioSexGroup.getCheckedRadioButtonId();
                 radioSexButton=(RadioButton)findViewById(selectedId);
-
-
                 radioSexButton.getText();
 
                 final String Firstname_ = pFirstname.getText().toString();

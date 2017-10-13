@@ -10,6 +10,17 @@ public class DoctorProfile implements Serializable {
     private String HospitalName;
     private String[] Services;
     private String Number;
+    private String imageID;
+
+    public String getImageID() {
+        return imageID;
+    }
+
+    public void setImageID(String imageID) {
+        this.imageID = imageID;
+    }
+
+
 
     public String getTheme() {
         return Theme;

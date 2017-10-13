@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Ke
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
+import com.ibm.watson.developer_cloud.service.exception.ServiceResponseException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
 
 import java.io.BufferedReader;
@@ -40,12 +42,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import io.realm.Realm;
+
 public class Symptoms2Diseases extends Fragment {
 
-    ProgressDialog mProgressDialog;
-
-
-    Button button;
+    Button button,history;
+    Realm realm;
 
     // HashMap and ArrayList Declaration
     ArrayList<String> arrayList = new ArrayList<String>();
@@ -73,16 +75,24 @@ public class Symptoms2Diseases extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        realm = Realm.getDefaultInstance();
         button = (Button) getActivity().findViewById(R.id.showDisease);
+        history = (Button) getActivity().findViewById(R.id.history);
         editText = (EditText)getActivity().findViewById(R.id.editText);
         LoadDatasetIntoHashmap();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                button.setEnabled(false);
                 OnShowDiseaseClick();
+            }
+        });
+
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),searchHistory.class));
             }
         });
 
@@ -90,13 +100,11 @@ public class Symptoms2Diseases extends Fragment {
 
     private void LoadDatasetIntoHashmap(){
 
-
         String data = "";
 
         InputStream is = this.getResources().openRawResource(R.raw.dataset);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
 
         if(is!=null){
             try{
@@ -168,11 +176,9 @@ public class Symptoms2Diseases extends Fragment {
                 }
 
             }
-
             if(totalPercentage>0){
 
                 int Hold;
-
                 totalPercentage = totalPercentage*100;
                 Hold = totalPercentage.intValue();
                 treeMap.put(Hold,entry.getKey());
@@ -189,7 +195,7 @@ public class Symptoms2Diseases extends Fragment {
             Integer key = entry.getKey();
             String value = entry.getValue();
 
-            // they are adding founded disease into stringBuffer with new line
+            // Adding founded disease into stringBuffer with new line
             diseaseList_Output.append(value);
             diseaseList_Output.append(System.getProperty("line.separator"));
 
@@ -205,15 +211,37 @@ public class Symptoms2Diseases extends Fragment {
 
         if(diseaseList_Output.length() != 0){
 
-            mProgressDialog.dismiss();
+            button.setEnabled(true);
             Intent i = new Intent(getContext(),ShowDisease.class);
             i.putExtra("DiseaseNames", (Serializable) diseaseList_Output);
+
+            realm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm bgRealm) {
+
+                    searchHistoryJava OBJ = bgRealm.createObject(searchHistoryJava.class);
+                    OBJ.setSymptoms(editText.getText().toString());
+//                    OBJ.setDiseases(diseaseList_Output);
+
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    Log.d("MainActivity","onSuccess on realm");
+                }
+            }, new Realm.Transaction.OnError() {
+                @Override
+                public void onError(Throwable error) {
+                    Log.d("MainActivity","onError on realm");
+                }
+            });
+
             startActivity(i);
 
         }else{
 
-            mProgressDialog.dismiss();
             Toast.makeText(getContext()," No disease found! please enter more detail ",Toast.LENGTH_LONG).show();
+            button.setEnabled(true);
 
         }
 
@@ -221,68 +249,69 @@ public class Symptoms2Diseases extends Fragment {
 
     private void userInput_POSTagger() {
 
-
-
         Thread POSTaggerThread = new Thread(new Runnable() {
             public void run() {
 
-                 try{
+                try{
 
-                     String UserInputSymptoms = editText.getText().toString();
+                    String UserInputSymptoms = editText.getText().toString();
 
-                     extractedSymptoms_List = new ArrayList();
+                    extractedSymptoms_List = new ArrayList();
 
-                     NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
-                             NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27,
-                             "1dd677ba-f65d-4f05-b70a-c1929e2b8bf8",
-                             "67GzSi0dejtf"
-                     );
-
-
-                     EntitiesOptions entitiesOptions = new EntitiesOptions.Builder()
-                             .emotion(true)
-                             .sentiment(true)
-                             .limit(2)
-                             .build();
-
-                     KeywordsOptions keywordsOptions = new KeywordsOptions.Builder()
-                             .emotion(true)
-                             .sentiment(true)
-                             .limit(2)
-                             .build();
-
-                     Features features = new Features.Builder()
-                             .entities(entitiesOptions)
-                             .keywords(keywordsOptions)
-                             .build();
-
-                     AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-                             .text(UserInputSymptoms)
-                             .features(features)
-                             .build();
-
-                     AnalysisResults response = service
-                             .analyze(parameters)
-                             .execute();
-                     List<KeywordsResult> keywords_get = response.getKeywords();
-
-                     for (KeywordsResult relation : keywords_get) {
-
-                         System.out.println(relation.getText());
-                         extractedSymptoms_List.add(relation.getText());
-
-                     }
-
-                 }
-                 catch (BadRequestException e){
-
-                     Toast.makeText(getContext(),e+ " ",Toast.LENGTH_LONG).show();
+                    NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
+                            NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27,
+                            "d565b1b1-356a-4a07-892b-c545411f9e8f",
+                            "puVcXF3ZJzoG"
+                    );
 
 
-                 }finally {
+                    EntitiesOptions entitiesOptions = new EntitiesOptions.Builder()
+                            .emotion(true)
+                            .sentiment(true)
+                            .limit(2)
+                            .build();
 
+                    KeywordsOptions keywordsOptions = new KeywordsOptions.Builder()
+                            .emotion(true)
+                            .sentiment(true)
+                            .limit(2)
+                            .build();
 
-                 }
+                    Features features = new Features.Builder()
+                            .entities(entitiesOptions)
+                            .keywords(keywordsOptions)
+                            .build();
+
+                    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
+                            .text(UserInputSymptoms)
+                            .features(features)
+                            .build();
+
+                    AnalysisResults response = service
+                            .analyze(parameters)
+                            .execute();
+                    List<KeywordsResult> keywords_get = response.getKeywords();
+
+                    for (KeywordsResult relation : keywords_get) {
+
+                        System.out.println(relation.getText());
+                        extractedSymptoms_List.add(relation.getText());
+
+                    }
+
+                }
+                catch(Exception e){
+
+                }
+//
+//                 catch (BadRequestException e){
+//
+//
+//                 }catch(ServiceResponseException e){
+//
+//                     Log.i(e.getMessage(),"In Exception Bro");
+//
+//                 }
 
             }
         });
@@ -314,13 +343,6 @@ public class Symptoms2Diseases extends Fragment {
 
             if(isNetworkAvailable()){
 
-                mProgressDialog = new ProgressDialog(getActivity());
-                mProgressDialog.setTitle("Finding Doctor...");
-                mProgressDialog.setMessage("Please wait.");
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.setIndeterminate(true);
-                mProgressDialog.show();
-
                 userInput_POSTagger();
 
             }
@@ -344,5 +366,11 @@ public class Symptoms2Diseases extends Fragment {
         }
         return isAvailable;
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }

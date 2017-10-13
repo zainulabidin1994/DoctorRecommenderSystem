@@ -83,8 +83,12 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Intent i = new Intent(MainActivity.this,MainActivity.class);
+            startActivity(i);
+//            super.onBackPressed();
         }
+
+//
     }
 
     @Override
@@ -148,6 +152,9 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.Fragment_Manager, aboutUs_Fragment);
             fragmentTransaction.commit();
 
+        }else if (id == R.id.nav_searchHistory){
+
+            startActivity(new Intent(MainActivity.this,searchHistory.class));
 
         }
 

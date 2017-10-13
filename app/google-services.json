@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "441291298281-ofdgd8au6tr6sq3i93gvpc17r2j5i1ib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zain.doctorrecommendersystem",
+            "certificate_hash": "c17114240f5c6b8157301a158b5a1cc09afeee93"
+          }
+        },
+        {
           "client_id": "441291298281-jebhcfbh5mvkgv5vpg2i6rap4548ndth.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

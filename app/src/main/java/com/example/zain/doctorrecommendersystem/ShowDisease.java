@@ -87,7 +87,7 @@ public class ShowDisease extends AppCompatActivity {
 
                     docProObj = new DoctorProfile();
 
-                    // Name,Hospital,Address,Email,Phone Number,Doctor Theme,Disease Handling list
+                    // Name,Hospital,Address,Email,Phone Number,Doctor Theme,Disease Handling list,image link
                     String[] doctorProfile_Parts = data.split("\\*");
 
                     // Now Doctor Spliting Doctor Speciality
@@ -100,6 +100,7 @@ public class ShowDisease extends AppCompatActivity {
                     docProObj.setNumber(doctorProfile_Parts[4]);
                     docProObj.setTheme(doctorProfile_Parts[5]);
                     docProObj.setServices(DiseaseHandling_Parts);
+                    docProObj.setImageID(doctorProfile_Parts[7]);
 
                     doctorProfile_List.add(docProObj);
 

@@ -5,14 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.R.id.list;
 import static com.example.zain.doctorrecommendersystem.R.layout.row;
 
 
@@ -21,13 +16,15 @@ import static com.example.zain.doctorrecommendersystem.R.layout.row;
         Context context;
         String[] docName;
         String[] docSpeciality;
+        Integer[] docImages;
 
-        public customArrayList(Context c, String[] docName, String[] docSpecialist) {
+        public customArrayList(Context c, String[] docName, String[] docSpecialist, Integer[] imgid) {
             super(c,R.layout.row,R.id.textView,docName);
 
             this.context = c;
             this.docName = docName;
             this.docSpeciality = docSpecialist;
+            this.docImages = imgid;
         }
 
         @Override
@@ -37,13 +34,19 @@ import static com.example.zain.doctorrecommendersystem.R.layout.row;
             View customView = myCustomInflater.inflate(row, parent, false);
             TextView doctorNames = (TextView) customView.findViewById(R.id.DoctorName);
             TextView doctorSpeciality = (TextView) customView.findViewById(R.id.DoctorSpeciality);
-            ImageView DocImage = (ImageView) customView.findViewById(R.id.imageView);
+            final ImageView DocImage = (ImageView) customView.findViewById(R.id.doctorPicture);
 
 
             doctorNames.setText(docName[position]);
             doctorSpeciality.setText(docSpeciality[position]);
 
-            DocImage.setImageResource(R.mipmap.doctorcartoon);
+            DocImage.setImageResource(docImages[position]);
+//            DocImage.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    DocImage.setImageResource(R.drawable.doc);
+//                }
+//            });
 
             return customView;
         }

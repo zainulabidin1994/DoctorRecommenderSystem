@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +29,11 @@ import java.util.Locale;
 
 public class ShowSingleDoctorProfile extends AppCompatActivity {
 
-
     private static final int PERMISSIONS_REQUEST_CODE = 11;
     private String Location;
     private String doctorLatitude, doctorLongitude;
     private String currentLocationLatitide;
     private String currentLoactionLongitude;
-
-
 
     // Doctor Profile Declaration
     String Name = null;
@@ -41,14 +41,10 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
     String Email = null;
     String doctor_Address = null;
     String doctor_Theme = null;
-    String Message = "Hello Zain";
+    String Message = "";
     String phoneNo = "";
-
-
-    // Declaration for sms sending to dictor
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
-
-
+    Integer doctorPictureId;
+    ImageView doctorPicture;
 
     TextView Doctor_Name,Hospital_Name,Doctor_Email,Doctor_Theme,Doctor_Address;
     String userEnteredLocation = null;
@@ -57,21 +53,17 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_single_doctor_profile);
 
-
-
         Doctor_Name = (TextView)findViewById(R.id.Doctor_Name);
         Hospital_Name = (TextView)findViewById(R.id.Hospital_Name);
         Doctor_Email = (TextView)findViewById(R.id.Doctor_Email);
         Doctor_Theme = (TextView)findViewById(R.id.Doctor_Theme);
         Doctor_Address = (TextView)findViewById(R.id.Doctor_Address);
-
+        doctorPicture = (ImageView)findViewById(R.id.doctorPicture);
 
         Bundle data = getIntent().getExtras();
 
-
         if(data==null){
             return;
-
         }
 
         Name = data.getString("Name");
@@ -80,21 +72,19 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
         doctor_Address = data.getString("Address");
         doctor_Theme = data.getString("Theme");
         phoneNo = data.getString("Number");
-
-
-
+        doctorPictureId = Integer.valueOf(data.getString("picLink"));
 
         Doctor_Name.setText(Name);
         Hospital_Name.setText(Hospital);
         Doctor_Email.setText(Email);
         Doctor_Theme.setText(doctor_Theme);
         Doctor_Address.setText(doctor_Address);
-
-
+        doctorPicture.setImageResource(doctorPictureId);
 
     }
 
     private void openDialog_appointment(){
+
         LayoutInflater inflater = LayoutInflater.from(ShowSingleDoctorProfile.this);
         View subView = inflater.inflate(R.layout.dialog_layout_appointment, null);
         final EditText Name_ = (EditText)subView.findViewById(R.id.Name);
@@ -115,8 +105,17 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
                 Message = "Patient : "+Name+" want to make Appointment at "+Time;
 
-                sendMessage();
+                if(Name.isEmpty()){
 
+                    Toast.makeText(ShowSingleDoctorProfile.this,"Name field can not be empty!",Toast.LENGTH_SHORT).show();
+
+                }if(Time.isEmpty()) {
+
+                    Toast.makeText(ShowSingleDoctorProfile.this,"Time field can not be empty!",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    sendMessage();
+                }
 
             }
         });
@@ -143,10 +142,14 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
     public void buttonForGoogleMap(View view){
 
-        openDialog();
+        if(isNetworkAvailable()){
 
+            openDialog();
 
-
+        }
+        else{
+            Toast.makeText(this,"Network is unavailable",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openDialog(){
@@ -166,43 +169,50 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
                 userEnteredLocation = subEditText.getText().toString();
 
-                // getting latitude and longitude of doctor
-                Geocoder geocoderDoc = new Geocoder(getApplication(), Locale.getDefault());
-                try {
-                    List addressList1 = geocoderDoc.getFromLocationName(doctor_Address, 1);
-                    if (addressList1 != null && addressList1.size() > 0) {
-                        Address address = (Address) addressList1.get(0);
-                        doctorLatitude = String.valueOf(address.getLatitude());
-                        doctorLongitude = String.valueOf(address.getLongitude());
+                if(userEnteredLocation.isEmpty()){
+
+                    Toast.makeText(ShowSingleDoctorProfile.this, "Text field can not be empty!", Toast.LENGTH_LONG).show();
+
+                }else{
+
+                    // getting latitude and longitude of doctor
+                    Geocoder geocoderDoc = new Geocoder(getApplication(), Locale.getDefault());
+                    try {
+                        List addressList1 = geocoderDoc.getFromLocationName(doctor_Address, 1);
+                        if (addressList1 != null && addressList1.size() > 0) {
+                            Address address = (Address) addressList1.get(0);
+                            doctorLatitude = String.valueOf(address.getLatitude());
+                            doctorLongitude = String.valueOf(address.getLongitude());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                // getting latitude and longitude of patient
-                 Geocoder geocoderPat = new Geocoder(getApplication(), Locale.getDefault());
-                try {
-                    List addressList2 = geocoderPat.getFromLocationName(userEnteredLocation, 1);
-                    if (addressList2 != null && addressList2.size() > 0) {
-                        Address address = (Address) addressList2.get(0);
-                        currentLocationLatitide = String.valueOf(address.getLatitude());
-                        currentLoactionLongitude = String.valueOf(address.getLongitude());
+                    // getting latitude and longitude of patient
+                    Geocoder geocoderPat = new Geocoder(getApplication(), Locale.getDefault());
+                    try {
+                        List addressList2 = geocoderPat.getFromLocationName(userEnteredLocation, 1);
+                        if (addressList2 != null && addressList2.size() > 0) {
+                            Address address = (Address) addressList2.get(0);
+                            currentLocationLatitide = String.valueOf(address.getLatitude());
+                            currentLoactionLongitude = String.valueOf(address.getLongitude());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("Doctor_Location", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("Doctor_Latitude", doctorLatitude);
+                    editor.putString("Doctor_Longitude", doctorLongitude);
+                    editor.putString("Current_Location_Latitude", String.valueOf(currentLocationLatitide));
+                    editor.putString("Current_Location_Longitude", String.valueOf(currentLoactionLongitude));
+                    editor.apply();
+
+                    Intent i = new Intent(ShowSingleDoctorProfile.this, MapsActivity.class);
+                    startActivity(i);
+
                 }
-
-
-                SharedPreferences sharedPreferences = getSharedPreferences("Doctor_Location", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Doctor_Latitude", doctorLatitude);
-                editor.putString("Doctor_Longitude", doctorLongitude);
-                editor.putString("Current_Location_Latitude", String.valueOf(currentLocationLatitide));
-                editor.putString("Current_Location_Longitude", String.valueOf(currentLoactionLongitude));
-                editor.apply();
-
-                Intent i = new Intent(ShowSingleDoctorProfile.this, MapsActivity.class);
-                startActivity(i);
 
             }
         });
@@ -220,16 +230,24 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
     public void MakeAppointmentButtonClick(View view){
 
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS},PERMISSIONS_REQUEST_CODE);
+        if(isNetworkAvailable()){
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if(checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
+                    requestPermissions(new String[]{Manifest.permission.SEND_SMS},PERMISSIONS_REQUEST_CODE);
+                }else{
+
+                    openDialog_appointment();
+                }
             }else{
+
                 openDialog_appointment();
             }
-        }else{
-            openDialog_appointment();
-        }
 
+        }
+        else{
+            Toast.makeText(this,"Network is unavailable",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -239,6 +257,17 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
                 openDialog_appointment();
             }
         }
+    }
+
+    private boolean isNetworkAvailable() {
+
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkinfo = manager.getActiveNetworkInfo();
+        boolean  isAvailable = false;
+        if ( networkinfo != null && networkinfo.isConnected()){
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 }
 
