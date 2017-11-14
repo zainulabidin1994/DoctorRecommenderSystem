@@ -8,10 +8,16 @@
     tools:context="com.example.zain.doctorrecommendersystem.PatientRegistration">
 
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="551dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_width="367dp"
+        android:layout_height="554dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp">
 
         <EditText
             android:id="@+id/firstname"
@@ -91,12 +97,12 @@
 
         <Button
             android:id="@+id/RegisterButton"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_below="@+id/address"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="35dp"
+            android:background="@android:color/background_light"
             android:text="Register" />
 
         <RadioGroup
@@ -125,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:background="@android:color/background_light"
-                android:text="Female " />
+                android:text="Female" />
 
         </RadioGroup>
 

@@ -83,9 +83,8 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            Intent i = new Intent(MainActivity.this,MainActivity.class);
-            startActivity(i);
-//            super.onBackPressed();
+
+
         }
 
 //
@@ -124,6 +123,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_enterSymptoms) {
+
 
             Symptoms2Diseases symptoms2Diseases_Fragment = new Symptoms2Diseases();
             android.support.v4.app.FragmentTransaction fragmentTransaction =

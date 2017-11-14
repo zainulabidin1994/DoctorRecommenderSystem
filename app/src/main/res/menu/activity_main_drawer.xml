@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_findDoctor"
             android:icon="@drawable/ic_find_replace_black_24dp"
-            android:title="Find Doctor?" />
+            android:title="Doctors" />
         <item
             android:id="@+id/nav_searchHistory"
             android:icon="@drawable/ic_history_black_24dp"

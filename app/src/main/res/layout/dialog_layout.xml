@@ -12,6 +12,7 @@
         android:background="@android:color/background_light"
         android:ems="10"
         android:hint="Type here:"
+        android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
         android:inputType="textPersonName" />
 
 </LinearLayout>

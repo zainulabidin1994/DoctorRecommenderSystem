@@ -114,6 +114,7 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
                     Toast.makeText(ShowSingleDoctorProfile.this,"Time field can not be empty!",Toast.LENGTH_SHORT).show();
 
                 }else{
+
                     sendMessage();
                 }
 
@@ -229,9 +230,6 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
 
     public void MakeAppointmentButtonClick(View view){
 
-
-        if(isNetworkAvailable()){
-
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if(checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
                     requestPermissions(new String[]{Manifest.permission.SEND_SMS},PERMISSIONS_REQUEST_CODE);
@@ -244,10 +242,6 @@ public class ShowSingleDoctorProfile extends AppCompatActivity {
                 openDialog_appointment();
             }
 
-        }
-        else{
-            Toast.makeText(this,"Network is unavailable",Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

@@ -68,8 +68,8 @@ public class searchHistory extends AppCompatActivity {
             dataList.add(obj);
 
         }
-
     }
+
 
     @Override
     protected void onDestroy() {

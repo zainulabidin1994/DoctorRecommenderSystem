@@ -1,61 +1,89 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/light_background"
-    android:padding="10dp"
-    tools:context="com.example.zain.doctorrecommendersystem.Symptoms2Diseases"
-    android:orientation="vertical">
+    tools:context="com.example.zain.doctorrecommendersystem.Symptoms2Diseases">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editText"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="12dp"
-        android:text="Enter your description here:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="#ffffff"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/editText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="175dp"
-        android:layout_above="@+id/showDisease"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="40dp"
-        android:background="#fffff0"
-        android:ems="10"
-        android:hint="Enter Symptoms Here:"
-        android:inputType="textMultiLine"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:singleLine="false"
-        android:text="i am having cough and fever" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/showDisease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/history"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
-        android:text="Find Disease:" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/history"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="History" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/editText"
+                android:layout_marginTop="10dp"
+                android:background="#fffffff0"
+                android:text="Enter your description below:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="19sp" />
 
-</LinearLayout>
+            <Button
+                android:id="@+id/clearText"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="#ffe5e5"
+                android:text="Clear Text" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_above="@+id/showDisease"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="40dp"
+            android:background="#fffffff0"
+            android:ems="10"
+            android:hint="Enter Symptoms Here:"
+            android:inputType="textMultiLine"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:singleLine="false"
+            android:text="i am having cough and fever" />
+
+        <Button
+            android:id="@+id/showDisease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Find Disease?" />
+
+        <Button
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="35dp"
+            android:text="recent searches" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp" />
+
+    </LinearLayout>
+
+
+</ScrollView>

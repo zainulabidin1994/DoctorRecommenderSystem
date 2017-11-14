@@ -76,7 +76,9 @@ public class Patient_Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 progressDialog.dismiss();
-                                startActivity(new Intent(Patient_Login.this, MainActivity.class));
+                                Intent intent = new Intent(Patient_Login.this, MainActivity.class);
+                                startActivity(intent);
+
 
                             } else {
 

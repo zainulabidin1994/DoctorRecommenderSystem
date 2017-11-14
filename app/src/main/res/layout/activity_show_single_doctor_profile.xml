@@ -65,7 +65,8 @@
             android:onClick="MakeAppointmentButtonClick"
             android:text="Book an appointment"
             android:textColor="@android:color/background_light"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"/>
 
         <TextView
             android:id="@+id/Hospital_Name"
@@ -97,8 +98,8 @@
             app:srcCompat="@drawable/openmap"
             android:layout_marginTop="16dp"
             android:layout_below="@+id/Hospital_Name"
-            android:layout_alignRight="@+id/Doctor_Name"
-            android:layout_alignEnd="@+id/Doctor_Name" />
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_toEndOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/Doctor_Email"
@@ -114,13 +115,13 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/buttonForGoogleMap"
-            android:layout_alignLeft="@+id/doctorPicture"
-            android:layout_alignStart="@+id/doctorPicture"
             android:text="Direction"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="#4065B4"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_above="@+id/Doctor_Address"
+            android:layout_alignLeft="@+id/Hospital_Name"
+            android:layout_alignStart="@+id/Hospital_Name" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

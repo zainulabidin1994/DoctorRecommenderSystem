@@ -1,9 +1,12 @@
 package com.example.zain.doctorrecommendersystem;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -46,7 +49,7 @@ import io.realm.Realm;
 
 public class Symptoms2Diseases extends Fragment {
 
-    Button button,history;
+    Button button,history,clearText;
     Realm realm;
 
     // HashMap and ArrayList Declaration
@@ -71,7 +74,6 @@ public class Symptoms2Diseases extends Fragment {
 
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -79,8 +81,15 @@ public class Symptoms2Diseases extends Fragment {
         button = (Button) getActivity().findViewById(R.id.showDisease);
         history = (Button) getActivity().findViewById(R.id.history);
         editText = (EditText)getActivity().findViewById(R.id.editText);
+        clearText = (Button)getActivity().findViewById(R.id.clearText);
         LoadDatasetIntoHashmap();
 
+        clearText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.setText("");
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,9 +179,7 @@ public class Symptoms2Diseases extends Fragment {
                         totalPercentage = totalPercentage+Percentage;
                         Occurrence=0.0;
                         break;
-
                     }
-
                 }
 
             }
@@ -188,9 +195,7 @@ public class Symptoms2Diseases extends Fragment {
         }
 
         int counter = 0;
-
         for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
-
 
             Integer key = entry.getKey();
             String value = entry.getValue();
@@ -208,7 +213,6 @@ public class Symptoms2Diseases extends Fragment {
             }
         }
 
-
         if(diseaseList_Output.length() != 0){
 
             button.setEnabled(true);
@@ -221,7 +225,7 @@ public class Symptoms2Diseases extends Fragment {
 
                     searchHistoryJava OBJ = bgRealm.createObject(searchHistoryJava.class);
                     OBJ.setSymptoms(editText.getText().toString());
-//                    OBJ.setDiseases(diseaseList_Output);
+                    OBJ.setDiseases(String.valueOf(diseaseList_Output));
 
                 }
             }, new Realm.Transaction.OnSuccess() {
@@ -237,13 +241,35 @@ public class Symptoms2Diseases extends Fragment {
             });
 
             startActivity(i);
-
         }else{
 
-            Toast.makeText(getContext()," No disease found! please enter more detail ",Toast.LENGTH_LONG).show();
+            openDialog_noDiseaseFound();
             button.setEnabled(true);
 
         }
+
+    }
+
+    private void openDialog_noDiseaseFound() {
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View subView = inflater.inflate(R.layout.dialog_nodiseasefound, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("No Disease Found!");
+        builder.setView(subView);
+
+        builder.setPositiveButton("Got it!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Toast.makeText(getActivity(),("\ud83d\ude01"), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        builder.show();
+
 
     }
 
@@ -260,8 +286,8 @@ public class Symptoms2Diseases extends Fragment {
 
                     NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
                             NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27,
-                            "d565b1b1-356a-4a07-892b-c545411f9e8f",
-                            "puVcXF3ZJzoG"
+                            "42278379-b450-410d-88aa-4a7c07b294c8",
+                            "UmLXp7ucBukI"
                     );
 
 
@@ -337,6 +363,7 @@ public class Symptoms2Diseases extends Fragment {
         if(TextUtils.isEmpty(editText.getText().toString()))
         {
             Toast.makeText(getContext(), " Enter Something in Text Field : ", Toast.LENGTH_LONG).show();
+            button.setEnabled(true);
             return;
 
         }else{
@@ -348,6 +375,7 @@ public class Symptoms2Diseases extends Fragment {
             }
             else {
 
+                button.setEnabled(true);
                 Toast.makeText(getContext(),"Network is unavailable",Toast.LENGTH_SHORT).show();
 
             }

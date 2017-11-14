@@ -3,9 +3,11 @@ package com.example.zain.doctorrecommendersystem;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,17 +46,17 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
         final searchHistoryJava search = searchList.get(position);
         holder.symptoms.setText(search.getSymptoms());
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(context, ShowActivity.class);
-//                i.putExtra("id",car.carID);
-//                i.putExtra("name",car.carName);
-//                i.putExtra("link",car.getPicLink());
-//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(i);
-//            }
-//        });
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("recyclerAdapter",search.getSymptoms()+"  "+search.getDiseases());
+                Intent i = new Intent(context,ShowDisease.class);
+                i.putExtra("DiseaseNames",search.getDiseases());
+                context.startActivity(i);
+            }
+        });
+
     }
 
     @Override
@@ -65,12 +67,14 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
     public class MyHolder extends RecyclerView.ViewHolder
     {
         TextView symptoms;
+        LinearLayout linearLayout;
 
         public MyHolder(View view) {
 
 
             super(view);
             symptoms = (TextView) view.findViewById(R.id.symptoms_history);
+            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout);
 
         }
     }
